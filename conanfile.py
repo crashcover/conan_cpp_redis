@@ -9,7 +9,7 @@ class CppredisConan(ConanFile):
     url = "https://github.com/crashcover/conan_cpp_redis"
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False]}
-    default_options = "shared=False"
+    default_options = "shared=True"
     generators = "cmake"
     folder_name = "cpp_redis"
 
