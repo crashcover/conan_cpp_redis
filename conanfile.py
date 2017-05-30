@@ -9,7 +9,7 @@ class CppredisConan(ConanFile):
     url = "https://github.com"
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False]}
-    default_options = "shared=True"
+    default_options = "shared=False"
     generators = "cmake"
     folder_name = "cpp_redis"
 
@@ -20,7 +20,7 @@ class CppredisConan(ConanFile):
     def build(self):
         cmake = CMake(self)
         shared = "-DBUILD_SHARED_LIBS=ON" if self.options.shared else ""
-        self.run('cmake %s %s %s' % (self.name, cmake.command_line, shared))
+        self.run('cmake %s %s %s' % (self.folder_name, cmake.command_line, shared))
         self.run("cmake --build . %s" % cmake.build_config)
 
     def package(self):
@@ -29,6 +29,7 @@ class CppredisConan(ConanFile):
         self.copy("*.lib", dst="lib", src="lib")
         self.copy("*.so", dst="lib", src="lib")
         self.copy("*.a", dst="lib", src="lib")
+        self.copy("*.a", dst="lib", src=self.folder_name+"/deps/lib")
 
     def package_info(self):
         self.cpp_info.libs = ["cpp_redis", "tacopie"]
