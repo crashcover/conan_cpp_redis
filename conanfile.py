@@ -6,7 +6,7 @@ class CppredisConan(ConanFile):
     description = "C++11 Lightweight Redis client: async, thread-safe, no dependency, pipelining, multi-platform."
     version = "3.5.1"
     license = "MIT License"
-    url = "https://github.com"
+    url = "https://github.com/crashcover/conan_cpp_redis"
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False]}
     default_options = "shared=False"
@@ -27,7 +27,9 @@ class CppredisConan(ConanFile):
         self.copy("*", dst="include", src=self.folder_name+"/includes")
         self.copy("*", dst="include", src=self.folder_name+"/tacopie/includes")
         self.copy("*.lib", dst="lib", src="lib")
+        self.copy("*.lib", dst="lib", src=self.folder_name+"/deps/lib")
         self.copy("*.so", dst="lib", src="lib")
+        self.copy("*.so", dst="lib", src=self.folder_name+"/deps/lib")
         self.copy("*.a", dst="lib", src="lib")
         self.copy("*.a", dst="lib", src=self.folder_name+"/deps/lib")
 
